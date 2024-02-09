@@ -62,4 +62,6 @@ public class QueryDslTest {
         boolean loaded = emf.getPersistenceUnitUtil().isLoaded(findPost.getCategoryPost());
         assertThat(loaded).as("페치조인적용").isTrue();
     }
+
+
 }

@@ -8,10 +8,9 @@ import java.util.List;
 
 
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Post {
+public class Post extends BaseTimeEntity{
     @Id @GeneratedValue
     @Column(name = "POST_ID")
     private Long id;

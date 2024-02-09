@@ -8,7 +8,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PostDto {
     @Data
@@ -30,7 +29,7 @@ public class PostDto {
         private Long id;
 
         public CreateResponse(Post post) {
-            this.id = post.getId();
+            id = post.getId();
         }
     }
 
@@ -39,24 +38,29 @@ public class PostDto {
         private Long id;
         private String title;
         private String content;
-        private List<Category> category;
+        private String date;
 
         public ReadResponse(Post post) {
-            this.id = post.getId();
-            this.title = post.getTitle();
-            this.content = post.getContent();
+            id = post.getId();
+            title = post.getTitle();
+            content = post.getContent();
+            date = post.changeDateFormat(post.getLastModifiedDate());
         }
     }
 
     @Data
-    public static class PostListResponse {
-        private Long id;
+    public static class ReadPostsResponse {
+        private Long postId;
         private String title;
         private String content;
+        private String date;
 
+        public ReadPostsResponse(Post post) {
+            postId = post.getId();
+            title = post.getTitle();
+            content = post.getContent();
+            date = post.changeDateFormat(post.getLastModifiedDate());
+        }
     }
-
-
-
 
 }

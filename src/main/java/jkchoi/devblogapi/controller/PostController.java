@@ -3,6 +3,7 @@ package jkchoi.devblogapi.controller;
 
 import jakarta.validation.Valid;
 import jkchoi.devblogapi.dto.PostDto;
+import jkchoi.devblogapi.entity.Category;
 import jkchoi.devblogapi.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -33,12 +34,15 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
-//    @GetMapping("/posts")
-//    public Slice<PostDto> getPosts(@RequestParam(name = "tag") String tag, Pageable pageable) {
-//        postService.readPosts(tag, pageable);
-//
-//
-//
-//    }
+    @GetMapping("/posts")
+    public ResponseEntity<Slice<PostDto.ReadPostsResponse>> getPosts(@RequestParam(name = "tag") String tag, Pageable pageable) {
+        Slice<PostDto.ReadPostsResponse> response = postService.readPosts(tag, pageable);
+
+        for (PostDto.ReadPostsResponse readPostsResponse : response) {
+            System.out.println("readPostsResponse = " + readPostsResponse.getTitle());
+        }
+
+        return ResponseEntity.ok(response);
+    }
 
 }

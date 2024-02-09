@@ -1,6 +1,7 @@
 package jkchoi.devblogapi.service;
 
 
+import jkchoi.devblogapi.dto.CategoryDto;
 import jkchoi.devblogapi.dto.PostDto;
 import jkchoi.devblogapi.entity.Category;
 import jkchoi.devblogapi.entity.CategoryPost;
@@ -12,8 +13,12 @@ import jkchoi.devblogapi.repository.query.PostQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -58,12 +63,9 @@ public class PostService {
         return new PostDto.ReadResponse(findPost);
     }
 
-    public Slice<Category> readPosts(String tag, Pageable pageable) {
-        Slice<Category> findPostsByTag = postQueryRepository.findPostsByTag(tag, pageable);
+    public Slice<PostDto.ReadPostsResponse> readPosts(String tag, Pageable pageable) {
+        Slice<PostDto.ReadPostsResponse> result = postQueryRepository.findPostsByTag(tag, pageable);
 
-        return findPostsByTag;
+        return result;
     }
-
-
-
 }
